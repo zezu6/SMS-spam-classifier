@@ -14,6 +14,3 @@ def clean(text: str) -> str:
     text = " ".join(text.split())   # space normalization
     return text
 
-
-df["input"] = df["input"].apply(clean)
-print(df.head())
