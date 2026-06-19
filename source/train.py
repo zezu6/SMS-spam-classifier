@@ -1,5 +1,5 @@
 import pandas as pd
-import sklearn
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 
 from preprocessing import clean
@@ -17,4 +17,9 @@ X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=10, stratify=y
 )
 
-print(type(X_train))
+vectorizer = TfidfVectorizer(stop_words="english", min_df=2)
+
+X_train_vec = vectorizer.fit_transform(X_train)
+X_test_vec = vectorizer.transform(X_test)
+
+# print(X_train_vec.shape, X_test_vec.shape, len(vectorizer.vocabulary_))
