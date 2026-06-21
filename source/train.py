@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import MultinomialNB
 
 from preprocessing import clean
 
@@ -23,3 +24,9 @@ X_train_vec = vectorizer.fit_transform(X_train)
 X_test_vec = vectorizer.transform(X_test)
 
 # print(X_train_vec.shape, X_test_vec.shape, len(vectorizer.vocabulary_))
+
+model = MultinomialNB()
+model.fit(X=X_train_vec, y=y_train)
+
+y_pred = model.predict(X=X_test_vec)
+print(len(y_pred))
