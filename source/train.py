@@ -1,9 +1,10 @@
 import pandas as pd
+from preprocessing import clean
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
 
-from preprocessing import clean
 
 df = pd.read_csv(filepath_or_buffer="../data/spam.csv", encoding="latin-1")
 df = df[["v1", "v2"]]
@@ -23,10 +24,16 @@ vectorizer = TfidfVectorizer(stop_words="english", min_df=2)
 X_train_vec = vectorizer.fit_transform(X_train)
 X_test_vec = vectorizer.transform(X_test)
 
-# print(X_train_vec.shape, X_test_vec.shape, len(vectorizer.vocabulary_))
-
 model = MultinomialNB()
 model.fit(X=X_train_vec, y=y_train)
 
 y_pred = model.predict(X=X_test_vec)
-print(len(y_pred))
+
+accuracy = accuracy_score(y_true=y_test, y_pred=y_pred)
+precision = precision_score(y_true=y_test, y_pred=y_pred, average=None)
+recall = recall_score(y_true=y_test, y_pred=y_pred, average=None)
+f1 = f1_score(y_true=y_test, y_pred=y_pred, average=None)
+conf_matrix = confusion_matrix(y_true=y_test, y_pred=y_pred, )
+
+print(f"accuracy: {accuracy}\nprecision: {precision}\nrecall: {recall}\nf1: {f1}")
+print(f"confusion matrix: {conf_matrix}")
