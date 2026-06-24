@@ -3,7 +3,7 @@ from preprocessing import clean
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
+from sklearn.metrics import confusion_matrix, classification_report
 
 
 df = pd.read_csv(filepath_or_buffer="../data/spam.csv", encoding="latin-1")
@@ -29,11 +29,14 @@ model.fit(X=X_train_vec, y=y_train)
 
 y_pred = model.predict(X=X_test_vec)
 
-accuracy = accuracy_score(y_true=y_test, y_pred=y_pred)
-precision = precision_score(y_true=y_test, y_pred=y_pred, average=None)
-recall = recall_score(y_true=y_test, y_pred=y_pred, average=None)
-f1 = f1_score(y_true=y_test, y_pred=y_pred, average=None)
-conf_matrix = confusion_matrix(y_true=y_test, y_pred=y_pred, )
+report = classification_report(y_true=y_test, y_pred=y_pred)
+conf_matrix = confusion_matrix(y_true=y_test, y_pred=y_pred)
 
-print(f"accuracy: {accuracy}\nprecision: {precision}\nrecall: {recall}\nf1: {f1}")
-print(f"confusion matrix: {conf_matrix}")
+print(f"report:\n{report}")
+print(f"confusion matrix:\n{conf_matrix}")
+
+
+#TODO: 1. Pipeline (TF-IDF + NB) + joblib
+#TODO: 2. CLI or FastAPI endpoint
+#TODO: 3. requirements and README
+#TODO: 4. Analise mistakes (FP/FN + confidence)
