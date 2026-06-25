@@ -33,4 +33,4 @@ conf_matrix = confusion_matrix(y_true=y_test, y_pred=y_pred)
 print(f"report:\n{report}")
 print(f"confusion matrix:\n{conf_matrix}")
 
-dump(pipe, "../models/spam_classifier.joblib")
+dump(pipe, "../model/spam_classifier.joblib")
