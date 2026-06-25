@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import confusion_matrix, classification_report
 from sklearn.pipeline import Pipeline
+from joblib import dump
 
 df = pd.read_csv(filepath_or_buffer="../data/spam.csv", encoding="latin-1")
 df = df[["v1", "v2"]]
@@ -32,5 +33,4 @@ conf_matrix = confusion_matrix(y_true=y_test, y_pred=y_pred)
 print(f"report:\n{report}")
 print(f"confusion matrix:\n{conf_matrix}")
 
-
-#TODO: ClI + confidence + README,  requirements
+dump(pipe, "../models/spam_classifier.joblib")
